@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import Button from './Button'
 import Input from './Input'
-const Form = props => {
+
+const Form = (props) => {
     const formState = {
         formInputs: {
             name: {
@@ -72,7 +73,6 @@ const Form = props => {
         updatedElements.value = value
         updatedFormInputs[inputIdentifier] = updatedElements
         setElements({ formInputs: updatedFormInputs })
-
     }
 
     const onSubmitHandler = e => {

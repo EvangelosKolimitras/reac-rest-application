@@ -1,6 +1,7 @@
 import React from "react";
 import classes from './App.module.css';
 import Button from './components/Button';
+import GetData from "./components/Data";
 import Form from './components/Form';
 import Persons from './components/Persons';
 import Theming from './utils/Theme';
@@ -26,6 +27,8 @@ class App extends React.Component {
         <Form />
 
         {this.state.isVisible ? <Persons users={this.state.users} /> : null}
+
+        <GetData />
       </div>
     );
   }
