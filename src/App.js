@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import classes from './App.module.css';
+import Button from './components/Button';
+import Form from './components/Form';
+import Persons from './components/Persons';
+import Theming from './utils/Theme';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends React.Component {
 
-export default App;
+  state = {
+    users: [
+      { id: 1, name: "evan", username: "evan92" },
+      { id: 2, name: "sofia", username: "sofia23" }
+    ],
+    isVisible: true
+  }
+
+  toggle = () => this.setState(() => ({ isVisible: !this.state.isVisible }))
+
+  render() {
+    return (
+      <div>
+        <h2>Welcome people</h2>
+        <Button value="Toggle" action={this.toggle} />
+
+        <Form />
+
+        {this.state.isVisible ? <Persons users={this.state.users} /> : null}
+      </div>
+    );
+  }
+};
+
+export default Theming(App, classes.App)
