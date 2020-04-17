@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
+import Button from './Button'
 import Input from './Input'
-
 const Form = props => {
     const formState = {
         formInputs: {
@@ -54,6 +54,7 @@ const Form = props => {
             }
         }
     }
+
     const [elements, setElements] = useState(formState)
 
     const formElements = []
@@ -65,11 +66,22 @@ const Form = props => {
     }
 
     const onChangeHandler = (e, inputIdentifier) => {
-        const value = e.target.value
+        let value = e.target.value
+        let updatedFormInputs = { ...elements.formInputs }
+        let updatedElements = { ...updatedFormInputs[inputIdentifier] }
+        updatedElements.value = value
+        updatedFormInputs[inputIdentifier] = updatedElements
+        setElements({ formInputs: updatedFormInputs })
 
     }
 
-    const form = (<form> {
+    const onSubmitHandler = e => {
+        e.preventDefault();
+        const data = {}
+        for (let i in elements.formInputs) data[i] = elements.formInputs[i]
+    }
+
+    const form = (<form onSubmit={onSubmitHandler} > {
         formElements.map(el => <Input
             key={el.id}
             elementType={el.config.elementType}
@@ -77,7 +89,9 @@ const Form = props => {
             value={el.config.value}
             onChangeHandler={e => onChangeHandler(e, el.id)}
         />)
-    }</form>)
+    }
+        <Button btnType="Success" value="Submit" />
+    </form>)
 
     return (
         <div>
